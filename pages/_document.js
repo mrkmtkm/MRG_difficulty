@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-import { ga_id } from '../lib/gtag';
 
 class SampleDocument extends Document {
   static async getInitialProps(ctx) {
@@ -18,26 +17,6 @@ class SampleDocument extends Document {
       >
         <Head>
           <link rel='dns-prefetch' href='//www.google.co.jp' />
-          {ga_id && (
-            <>
-              <script
-                async
-                src={`https://www.googletagmanager.com/gtag/js?id=${ga_id}`}
-              />
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-        `,
-                }}
-              />
-            </>
-          )}
         </Head>
         <body>
           <Main />
