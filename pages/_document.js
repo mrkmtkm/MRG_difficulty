@@ -1,5 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-import { GA_TRACKING_ID } from 'lib/gtag';
+import { ga_id } from '../lib/gtag';
 
 class SampleDocument extends Document {
   static async getInitialProps(ctx) {
@@ -18,11 +18,11 @@ class SampleDocument extends Document {
       >
         <Head>
           <link rel='dns-prefetch' href='//www.google.co.jp' />
-          {GA_TRACKING_ID && (
+          {ga_id && (
             <>
               <script
                 async
-                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+                src={`https://www.googletagmanager.com/gtag/js?id=${ga_id}`}
               />
               <script
                 dangerouslySetInnerHTML={{

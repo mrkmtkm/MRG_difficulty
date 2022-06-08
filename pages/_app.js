@@ -2,11 +2,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { GA_TRACKING_ID, pageview } from 'lib/gtag';
+import { ga_id, pageview } from '../lib/gtag';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
-    if (!GA_TRACKING_ID) return;
+    if (!ga_id) return;
 
     const handleRouteChange = (url) => {
       pageview(url);
