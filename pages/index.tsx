@@ -49,12 +49,13 @@ export default function Home() {
       skill === '前方伸身宙返り' ||
       skill === '前宙1回ひねり' ||
       skill === '前宙1回半ひねり' ||
-      skill === '前宙伏臥'
+      skill === '前宙伏臥' ||
+      skill === '後方宙返り１回半ひねり伏臥' ||
+      skill === 'ハーフ伏臥'
     ) {
       //C難度
       return 4;
     } else if (
-      skill === '後方宙返り１回半ひねり伏臥' ||
       skill === '後方宙返り2回ひねり' ||
       skill === '後方2回以上の宙返り' ||
       skill === '前宙2回ひねり' ||
@@ -174,11 +175,31 @@ export default function Home() {
             break;
           }
 
-          //(B難度 or BC難度 or C難度)＋A難度＋C難度＝D難度
+          //(B難度 or BC難度)＋A難度＋C難度＝C難度
           if (
-            (formatData[i] === 2 ||
-              formatData[i] === 3 ||
-              formatData[i] === 4) &&
+            (formatData[i] === 2 || formatData[i] === 3) &&
+            formatData[i + 1] === 1 &&
+            formatData[i + 2] === 4
+          ) {
+            formatData[i] = 4;
+            formatData.splice(i + 1, 2);
+            break;
+          }
+
+          //C難度＋A難度＋(B難度 or BC難度)＝C難度
+          if (
+            formatData[i] === 4 &&
+            formatData[i + 1] === 1 &&
+            (formatData[i + 2] === 2 || formatData[i + 2] === 3)
+          ) {
+            formatData[i] = 4;
+            formatData.splice(i + 1, 2);
+            break;
+          }
+
+          //C難度＋A難度＋C難度＝D難度
+          if (
+            formatData[i] === 4 &&
             formatData[i + 1] === 1 &&
             formatData[i + 2] === 4
           ) {
@@ -228,7 +249,10 @@ export default function Home() {
       <option value='バク宙'>バク宙(後方宙返り)→B難度</option>
       <option value='スワン宙'>スワン宙(伸身宙返り)→B難度</option>
       <option value='テンポ宙'>テンポ宙→B難度</option>
-      <option value='ハーフ'>ハーフ(後方宙返り半ひねり)→B難度(6人でC)</option>
+      <option value='ハーフ'>ハーフ宙(後方宙返り半ひねり)→B難度(6人でC)</option>
+      <option value='ハーフ伏臥'>
+        ハーフ伏臥(後方宙返り半ひねり伏臥)→C難度
+      </option>
       <option value='ダイビング前転'>
         ダイビング前転(後ろとびひねり前転)→A難度
       </option>
@@ -241,7 +265,7 @@ export default function Home() {
         後方宙返り１回半ひねり(ドライブ)→C難度
       </option>
       <option value='後方宙返り１回半ひねり伏臥'>
-        後方宙返り１回半ひねり伏臥(ドライブ伏臥)→D難度
+        後方宙返り１回半ひねり伏臥(ドライブ伏臥)→C難度
       </option>
       <option value='後方宙返り2回ひねり'>
         後方宙返り2回ひねり以上のひねり技→D難度
